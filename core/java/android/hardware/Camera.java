@@ -1924,6 +1924,166 @@ public class Camera {
         return camera.new Parameters();
     }
 
+    /* ### QC ADD-ONS: START */
+    private static int byteToInt(byte[] b, int offset) {
+        int value = 0;
+        for (int i = 0; i < 4; i++) {
+            int shift = (4 - 1 - i) * 8;
+            value += (b[(3-i) + offset] & 0x000000FF) << shift;
+        }
+        return value;
+    }
+    /** @hide
+     * Handles the callback for when Camera Data is available.
+     * data is read from the camera.
+     */
+    public interface CameraDataCallback {
+        /**
+         * Callback for when camera data is available.
+         *
+         * @param data   a int array of the camera data
+         * @param camera the Camera service object
+         */
+        void onCameraData(int[] data, Camera camera);
+    };
+
+    /** @hide
+     * Set camera histogram mode and registers a callback function to run.
+     *  Only valid after startPreview() has been called.
+     *
+     * @param cb the callback to run
+     */
+    public final void setHistogramMode(CameraDataCallback cb)
+    {
+        mCameraDataCallback = cb;
+        native_setHistogramMode(cb!=null);
+    }
+    private native final void native_setHistogramMode(boolean mode);
+
+    /** @hide
+     * Set camera histogram command to send data.
+     *
+     */
+    public final void sendHistogramData()
+    {
+        native_sendHistogramData();
+    }
+    private native final void native_sendHistogramData();
+
+    /** @hide
+     * Handles the callback for when Camera Meta Data is available.
+     * Meta data is read from the camera.
+     */
+    public interface CameraMetaDataCallback {
+        /**
+         * Callback for when camera meta data is available.
+         *
+         * @param data   a byte array of the camera meta data
+         * @param camera the Camera service object
+         */
+        void onCameraMetaData(byte[] data, Camera camera);
+    };
+
+    /** @hide
+     * Set camera meta data and registers a callback function to run.
+     *  Only valid after startPreview() has been called.
+     *
+     * @param cb the callback to run
+     */
+    public final void setMetadataCb(CameraMetaDataCallback cb)
+    {
+        mCameraMetaDataCallback = cb;
+        native_setMetadataCb(cb!=null);
+    }
+    private native final void native_setMetadataCb(boolean mode);
+
+    /** @hide
+     * Set camera face detection command to send meta data.
+     */
+    public final void sendMetaData()
+    {
+        native_sendMetaData();
+    }
+    private native final void native_sendMetaData();
+
+    /** @hide
+     * Configure longshot mode. Available only in ZSL.
+     *
+     * @param enable enable/disable this mode
+     */
+    public final void setLongshot(boolean enable)
+    {
+        native_setLongshot(enable);
+    }
+    private native final void native_setLongshot(boolean enable);
+
+    /** @hide
+     * Stop longshot. Available only in ZSL.
+     */
+    public final void stopLongshot()
+    {
+        native_stopLongshot();
+    }
+    private native final void native_stopLongshot();
+
+     /** @hide
+     * Handles the Touch Co-ordinate.
+     */
+     public class Coordinate {
+        /**
+         * Sets the x,y co-ordinates for a touch event
+         *
+         * @param x the x co-ordinate (pixels)
+         * @param y the y co-ordinate (pixels)
+         */
+        public Coordinate(int x, int y) {
+            xCoordinate = x;
+            yCoordinate = y;
+        }
+        /**
+         * Compares {@code obj} to this co-ordinate.
+         *
+         * @param obj the object to compare this co-ordinate with.
+         * @return {@code true} if the xCoordinate and yCoordinate of {@code obj} is the
+         *         same as those of this coordinate. {@code false} otherwise.
+         */
+        @Override
+        public boolean equals(Object obj) {
+            if (!(obj instanceof Coordinate)) {
+                return false;
+            }
+            Coordinate c = (Coordinate) obj;
+            return xCoordinate == c.xCoordinate && yCoordinate == c.yCoordinate;
+        }
+
+        /** x co-ordinate for the touch event*/
+        public int xCoordinate;
+
+        /** y co-ordinate for the touch event */
+        public int yCoordinate;
+    };
+
+    /** @hide
+     * Returns the current focus position.
+     *
+     * If it's in AF mode, it's the lens position after af is done.
+     *
+     * If it's in Manual Focus mode, it actually returns the value
+     *     set by user via {@link #setParameters(Camera.Parameters)}.
+     */
+    public int getCurrentFocusPosition() {
+        Parameters p = new Parameters();
+        String s = native_getParameters();
+        p.unflatten(s);
+
+        int focus_pos = -1;
+        if (p.getCurrentFocusPosition() != null) {
+            focus_pos = Integer.parseInt(p.getCurrentFocusPosition());
+        }
+        return focus_pos;
+    }
+
+    /* ### QC ADD-ONS: END */
     /**
      * Returns a copied {@link Parameters}; for shim use only.
      *
