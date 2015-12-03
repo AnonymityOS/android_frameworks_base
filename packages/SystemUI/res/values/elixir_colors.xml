@@ -41,5 +41,6 @@
 
     <!-- Volume panel border coler -->
     <color name="volume_panel_border_color">#ff8000ff</color><!-- Screw'd purple -->
+    <color name="system_accent_color">#ff80CBC4</color><!-- deep teal 200 -->
 
 </resources>

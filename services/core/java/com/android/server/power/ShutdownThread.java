@@ -56,6 +56,7 @@ import com.android.internal.telephony.ITelephony;
 import com.android.server.pm.PackageManagerService;
 
 import android.util.Log;
+import android.view.Gravity;
 import android.view.WindowManager;
 
 import java.io.BufferedReader;
@@ -237,6 +238,7 @@ public final class ShutdownThread extends Thread {
 
             closer.dialog = sConfirmDialog;
             sConfirmDialog.setOnDismissListener(closer);
+            WindowManager.LayoutParams attrs = sConfirmDialog.getWindow().getAttributes();
 
             sConfirmDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_KEYGUARD_DIALOG);
             sConfirmDialog.getWindow().setDimAmount(setRebootDialogDim(context));
@@ -401,6 +403,7 @@ public final class ShutdownThread extends Thread {
         }
         pd.setCancelable(false);
         pd.getWindow().setType(WindowManager.LayoutParams.TYPE_KEYGUARD_DIALOG);
+        WindowManager.LayoutParams attrs = pd.getWindow().getAttributes();
 
         attrs.alpha = setRebootDialogAlpha(context);
         pd.getWindow().setDimAmount(setRebootDialogDim(context));

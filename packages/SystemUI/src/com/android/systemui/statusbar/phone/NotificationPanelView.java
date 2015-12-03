@@ -348,7 +348,10 @@ public class NotificationPanelView extends PanelView implements
                 mNotificationStackScroller.setQsContainer(mQsContainer);
             }
         });
-        
+
+        setQSStroke();
+        setQSBackgroundAlpha();
+
             mNotificationPanelView = this;
 
             mBlurUtils = new BlurUtils(mNotificationPanelView.getContext());
@@ -460,8 +463,6 @@ public class NotificationPanelView extends PanelView implements
 
         new BlurTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-        setQSStroke();
-        setQSBackgroundAlpha();
     }
 
     @Override
