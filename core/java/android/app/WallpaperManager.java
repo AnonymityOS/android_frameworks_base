@@ -1394,7 +1394,7 @@ public class WallpaperManager {
     @SystemApi
     public void clearWallpaper() {
         clearWallpaper(FLAG_LOCK, mContext.getUserId());
-        clearWallpaper(FLAG_SYSTEM, mContext.getUserId());
+        clearWallpaper(FLAG_SYSTEM | FLAG_LOCK, mContext.getUserId());
     }
 
     /**
