@@ -4616,6 +4616,26 @@ public final class Settings {
         public static final String QS_STROKE_DASH_GAP = "qs_stroke_dash_gap";
 
         /**
+         * Statusbar AICP logo
+         * @hide
+         */
+        public static final String STATUS_BAR_ELIXIR_LOGO = "status_bar_elixir_logo";
+
+        /**
+         * Statusbar AICP logo color setting
+         * @hide
+         */
+        public static final String STATUS_BAR_AICP_LOGO_COLOR = "status_bar_elixir_logo_color";
+
+        /**
+         * Style of Status bar logo
+         * 0 - Left (default)
+         * 1 - Right
+         * @hide
+         */
+        public static final String STATUS_BAR_AICP_LOGO_STYLE = "status_bar_elixir_logo_style";
+
+        /**
          *  Enable smartbar double tap to sleep gesture
          * @hide
          */

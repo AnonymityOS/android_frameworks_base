@@ -423,6 +423,13 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
     private TextView mCarrierLabel;
     boolean mExpandedVisible;
 
+    // Elixir logo
+    private boolean mElixirLogo;
+    private int mElixirLogoColor;
+    private ImageView mElixirLogoRight;
+    private ImageView mElixirLogoLeft;
+    private int mElixirLogoStyle;
+
     private int mNavigationBarWindowState = WINDOW_STATE_SHOWING;
 
     private int mStatusBarHeaderHeight;
@@ -564,6 +571,8 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         }
     };
 
+    private SettingsObserver mSettingsObserver;
+
     class SettingsObserver extends ContentObserver {
         SettingsObserver(Handler handler) {
             super(handler);
@@ -627,7 +636,13 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
            resolver.registerContentObserver(Settings.System.getUriFor(
                   Settings.System.BLUR_LIGHT_COLOR_PREFERENCE_KEY), false, this);
            resolver.registerContentObserver(Settings.System.getUriFor(
-                  Settings.System.BLUR_MIXED_COLOR_PREFERENCE_KEY), false, this); 
+                  Settings.System.BLUR_MIXED_COLOR_PREFERENCE_KEY), false, this);
+           resolver.registerContentObserver(Settings.System.getUriFor(
+                  Settings.System.STATUS_BAR_ELIXIR_LOGO), false, this, UserHandle.USER_ALL);
+           resolver.registerContentObserver(Settings.System.getUriFor(
+                  Settings.System.STATUS_BAR_ELIXIR_LOGO_COLOR), false, this, UserHandle.USER_ALL);
+           resolver.registerContentObserver(Settings.System.getUriFor(
+                  Settings.System.STATUS_BAR_ELIXIR_LOGO_STYLE), false, this, UserHandle.USER_ALL);
             update();
         }
 
@@ -714,7 +729,17 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                     Settings.System.BLUR_MIXED_COLOR_PREFERENCE_KEY, Color.GRAY);
             mBlurLightColorFilter = Settings.System.getInt(mContext.getContentResolver(), 
                     Settings.System.BLUR_LIGHT_COLOR_PREFERENCE_KEY, Color.DKGRAY);
-                    
+            mElixirLogoStyle = Settings.System.getIntForUser(
+                    resolver, Settings.System.STATUS_BAR_ELIXIR_LOGO_STYLE, 0,
+                    UserHandle.USER_CURRENT);
+            mElixirLogo = Settings.System.getIntForUser(resolver,
+                    Settings.System.STATUS_BAR_ELIXIR_LOGO, 0, mCurrentUserId) == 1;
+            mElixirLogoColor = Settings.System.getIntForUser(resolver,
+                    Settings.System.STATUS_BAR_ELIXIR_LOGO_COLOR, 0xFFFFFFFF, mCurrentUserId);
+            mElixirLogoLeft = (ImageView) mStatusBarView.findViewById(R.id.left_elixir_logo);
+            mElixirLogoRight = (ImageView) mStatusBarView.findViewById(R.id.elixir_logo);
+            showElixirLogo(mElixirLogo, mElixirLogoColor, mElixirLogoStyle);
+
             RecentsActivity.updateBlurColors(mBlurDarkColorFilter,mBlurMixedColorFilter,mBlurLightColorFilter);
             RecentsActivity.updateRadiusScale(mScaleRecents,mRadiusRecents);
          }
@@ -950,6 +975,11 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
 
         addNavigationBar();
 
+        if (mSettingsObserver == null) {
+            mSettingsObserver = new SettingsObserver(new Handler());
+        }
+        mSettingsObserver.observe();
+
         // Lastly, call to the icon policy to install/update all the icons.
         mIconPolicy = new PhoneStatusBarPolicy(mContext, mIconController, mCastController,
                 mHotspotController, mUserInfoController, mBluetoothController,
@@ -981,9 +1011,6 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
 
         mScreenPinningRequest = new ScreenPinningRequest(mContext);
         mFalsingManager = FalsingManager.getInstance(mContext);
-
-        SettingsObserver observer = new SettingsObserver(mHandler);
-        observer.observe();
     }
 
     protected void createIconController() {
@@ -3998,6 +4025,29 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                 return deferred;
             }
         }, cancelAction, afterKeyguardGone);
+    }
+
+    public void showElixirLogo(boolean show, int color, int style) {
+        if (mStatusBarView == null) return;
+        if (!show) {
+            mElixirLogoRight.setVisibility(View.GONE);
+            mElixirLogoLeft.setVisibility(View.GONE);
+            return;
+        }
+        if (color != 0xFFFFFFFF) {
+            mElixirLogoRight.setColorFilter(color, PorterDuff.Mode.SRC_IN);
+            mElixirLogoLeft.setColorFilter(color, PorterDuff.Mode.SRC_IN);
+        } else {
+            mElixirLogoRight.clearColorFilter();
+            mElixirLogoLeft.clearColorFilter();
+        }
+        if (style == 0) {
+            mElixirLogoRight.setVisibility(View.GONE);
+            mElixirLogoLeft.setVisibility(View.VISIBLE);
+        } else {
+            mElixirLogoLeft.setVisibility(View.GONE);
+            mElixirLogoRight.setVisibility(View.VISIBLE);
+        }
     }
 
     private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {

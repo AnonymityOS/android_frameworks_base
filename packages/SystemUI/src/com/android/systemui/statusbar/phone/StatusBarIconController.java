@@ -28,6 +28,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.os.UserHandle;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.ArraySet;
 import android.util.TypedValue;
@@ -86,6 +87,8 @@ public class StatusBarIconController extends StatusBarIconList implements Tunabl
 
     private ClockController mClockController;
     private View mCenterClockLayout;
+    private ImageView mElixirLogoRight;
+    private ImageView mElixirLogoLeft;
 
     private int mIconSize;
     private int mIconHPadding;
@@ -151,7 +154,8 @@ public class StatusBarIconController extends StatusBarIconList implements Tunabl
         mHandler = new Handler();
         mClockController = new ClockController(statusBar, mNotificationIcons, mHandler);
         mCenterClockLayout = statusBar.findViewById(R.id.center_clock_layout);
-
+        mElixirLogoRight = (ImageView) statusBar.findViewById(R.id.elixir_logo);
+        mElixirLogoLeft = (ImageView) statusBar.findViewById(R.id.left_elixir_logo);
         loadDimens();
 
         mBatteryLevelView = (BatteryLevelTextView) statusBar.findViewById(R.id.battery_level);
@@ -553,7 +557,12 @@ public class StatusBarIconController extends StatusBarIconList implements Tunabl
         mClockController.setTextColor(mIconTint);
         mBatteryMeterView.setDarkIntensity(
                 isInArea(mTintArea, mBatteryMeterView) ? mDarkIntensity : 0);
-        mBatteryLevelView.setTextColor(getTint(mTintArea, mBatteryLevelView, mIconTint));
+        if (Settings.System.getIntForUser(mContext.getContentResolver(),
+                Settings.System.STATUS_BAR_ELIXIR_LOGO_COLOR, 0xFFFFFFFF,
+                UserHandle.USER_CURRENT) == 0xFFFFFFFF) {
+            mElixirLogoRight.setImageTintList(ColorStateList.valueOf(mIconTint));
+            mElixirLogoLeft.setImageTintList(ColorStateList.valueOf(mIconTint));
+        }
     }
 
     public void appTransitionPending() {
