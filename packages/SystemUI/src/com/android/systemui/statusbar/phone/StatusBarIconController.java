@@ -339,11 +339,19 @@ public class StatusBarIconController extends StatusBarIconList implements Tunabl
     public void hideSystemIconArea(boolean animate) {
         animateHide(mSystemIconArea, animate);
         animateHide(mCenterClockLayout, animate);
+        if (Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.STATUS_BAR_ELIXIR_LOGO, 0) == 1) {
+            animateHide(mElixirLogoLeft, animate);
+        }
     }
 
     public void showSystemIconArea(boolean animate) {
         animateShow(mSystemIconArea, animate);
         animateShow(mCenterClockLayout, animate);
+        if (Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.STATUS_BAR_ELIXIR_LOGO, 0) == 1) {
+            animateShow(mElixirLogoLeft, animate);
+        }
     }
 
     public void hideNotificationIconArea(boolean animate) {
