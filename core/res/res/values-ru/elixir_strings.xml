@@ -55,4 +55,7 @@
 
     <!-- Vendor mismatched fingerprint warning [CHAR LIMIT=NONE] -->
     <string name="system_error_vendorprint">Версия образа vendor не соответствует системе. Прошейте образ vendor версии <xliff:g id="string">%s</xliff:g></string>
+
+    <string name="singlehandmode_click_hint_message">Коснитесь снаружи экрана для выхода из режима одной руки</string>
+    <string name="singlehandmode_slide_hint_message">Проведите пальцем по панели навигации для переключения между обычным режимом и режимом одной руки</string>
 </resources>
