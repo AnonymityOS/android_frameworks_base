@@ -275,7 +275,7 @@
                   android:theme="@style/ExTunerSettings"
                   android:label="@string/statusbar_items_title"
                   android:process=":tuner"
-                  android:parentActivityName="com.nitrogen.settings.fragments.StatusBarSettings"
+                  android:parentActivityName="com.elixir.settings.fragments.StatusBarSettings"
                   android:exported="true">
         </activity>
 
@@ -283,7 +283,7 @@
                   android:theme="@style/ExTunerSettings"
                   android:label="@string/tuner_full_importance_settings"
                   android:process=":tuner"
-                  android:parentActivityName="com.nitrogen.settings.fragments.NotificationSettings"
+                  android:parentActivityName="com.elixir.settings.fragments.NotificationSettings"
                   android:exported="true">
         </activity>
 
