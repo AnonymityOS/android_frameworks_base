@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.internal.util.nitrogen;
+package com.android.internal.util.elixir;
 
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;

@@ -41,8 +41,8 @@ import android.widget.ImageView;
 import android.widget.TextClock;
 import android.widget.TextView;
 
-import com.android.internal.util.nitrogen.WeatherController;
-import com.android.internal.util.nitrogen.WeatherControllerImpl;
+import com.android.internal.util.elixir.WeatherController;
+import com.android.internal.util.elixir.WeatherControllerImpl;
 import com.android.internal.widget.LockPatternUtils;
 
 import java.util.Date;
