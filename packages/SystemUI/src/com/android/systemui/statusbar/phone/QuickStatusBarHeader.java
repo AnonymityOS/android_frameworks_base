@@ -365,7 +365,7 @@ public class QuickStatusBarHeader extends BaseStatusBarHeader implements
     @Override
     public boolean onLongClick(View v) {
         if (v == mSettingsButton) {
-            startNitrogenActivity();
+            startElixirActivity();
         }
         return false;
     }
@@ -375,10 +375,10 @@ public class QuickStatusBarHeader extends BaseStatusBarHeader implements
                 true /* dismissShade */);
     }
 
-    private void startNitrogenActivity() {
+    private void startElixirActivity() {
         Intent nIntent = new Intent(Intent.ACTION_MAIN);
         nIntent.setClassName("com.android.settings",
-            "com.android.settings.Settings$NitrogenSettingsActivity");
+            "com.android.settings.Settings$ElixirSettingsActivity");
         mActivityStarter.startActivity(nIntent, true /* dismissShade */);
     }
 
