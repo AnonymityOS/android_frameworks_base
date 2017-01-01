@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.systemui.nitrogen.carrierlabel;
+package com.android.systemui.elixir.carrierlabel;
 
 import java.io.File;
 import java.io.FileNotFoundException;

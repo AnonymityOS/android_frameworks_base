@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 The Nitrogen Project
+ * Copyright (C) 2016 The Elixir OS
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package com.android.internal.util.nitrogen;
+package com.android.internal.util.elixir;
 
 import android.content.res.Resources;
 
 import java.util.Locale;
 
-public class NitrogenUtils {
+public class ElixirUtils {
 
     public static boolean isChineseLanguage() {
        return Resources.getSystem().getConfiguration().locale.getLanguage().startsWith(
