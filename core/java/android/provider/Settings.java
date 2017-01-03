@@ -7555,12 +7555,6 @@ public final class Settings {
         public static final String QS_DATA_ADVANCED = "qs_data_advanced";
 
         /**
-         * Whether the device should tint notification title.
-         * @hide
-         */
-        public static final String NOTIFICATION_TITLE_TINT = "notification_title_tint";
-
-        /**
          * Count of small QS tiles.
          * @hide
          */
