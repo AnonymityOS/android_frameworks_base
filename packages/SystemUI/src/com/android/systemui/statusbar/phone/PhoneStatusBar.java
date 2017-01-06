@@ -1221,6 +1221,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                     initSignalCluster(mHeader);
                     mHeader.setActivityStarter(PhoneStatusBar.this);
                     mStackScroller.updateNotificationView();
+                    mVolumeComponent.updateDialog();
                 }
             });
         }
