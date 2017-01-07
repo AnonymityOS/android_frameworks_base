@@ -7643,7 +7643,7 @@ public final class Settings {
             QS_TILES,
             DOZE_ENABLED,
             DOZE_PULSE_ON_PICK_UP,
-            DOZE_PULSE_ON_DOUBLE_TAP
+            DOZE_PULSE_ON_DOUBLE_TAP,
             LOCKSCREEN_QUICK_UNLOCK_CONTROL,
             DOZE_PULSE_ON_DOUBLE_TAP,
             STATUS_BAR_SHOW_BATTERY_PERCENT,

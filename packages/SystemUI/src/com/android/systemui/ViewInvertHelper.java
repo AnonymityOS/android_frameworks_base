@@ -38,7 +38,6 @@ public class ViewInvertHelper {
     private final ColorMatrix mMatrix = new ColorMatrix();
     private final ColorMatrix mGrayscaleMatrix = new ColorMatrix();
     private final long mFadeDuration;
-    private final boolean mThemeInvert;
     private final ArrayList<View> mTargets = new ArrayList<>();
     private final Context mContext;
 

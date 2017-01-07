@@ -63,7 +63,7 @@ public class LteTile extends QSTile<QSTile.BooleanState> {
 
     @Override
     public int getMetricsCategory() {
-        return MetricsEvent.NITROGEN_SETTINGS;
+        return MetricsEvent.ELIXIR_SETTINGS;
     }
 
     @Override

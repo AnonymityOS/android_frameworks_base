@@ -86,7 +86,7 @@ public class NavigationBarTile extends QSTile<QSTile.State> {
 
     @Override
     public int getMetricsCategory() {
-        return MetricsEvent.NITROGEN_SETTINGS;
+        return MetricsEvent.ELIXIR_SETTINGS;
     }
 
     @Override
@@ -228,7 +228,7 @@ public class NavigationBarTile extends QSTile<QSTile.State> {
 
         @Override
         public int getMetricsCategory() {
-            return MetricsEvent.NITROGEN_SETTINGS;
+            return MetricsEvent.ELIXIR_SETTINGS;
         }
 
         @Override

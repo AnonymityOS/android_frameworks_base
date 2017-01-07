@@ -313,8 +313,9 @@ public class DozeService extends DreamService {
 
     private void listenForPulseSignals(boolean listen) {
         if (DEBUG) Log.d(mTag, "listenForPulseSignals: " + listen);
-        mSigMotionSensor.setListening(listen);
-        mPickupSensor.setListening(listen);
+        for (TriggerSensor s : mSensors) {
+            s.setListening(listen);
+        }
         listenForBroadcasts(listen);
         listenForNotifications(listen);
     }
@@ -362,7 +363,7 @@ public class DozeService extends DreamService {
 
     private void requestNotificationPulse() {
         if (DEBUG) Log.d(mTag, "requestNotificationPulse");
-        if (!mDozeParameters.getPulseOnNotifications()) return;
+        if (!mConfig.pulseOnNotificationEnabled(UserHandle.USER_CURRENT)) return;
         mNotificationPulseTime = SystemClock.elapsedRealtime();
         requestPulse(DozeLog.PULSE_REASON_NOTIFICATION);
     }
