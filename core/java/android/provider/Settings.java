@@ -4625,7 +4625,7 @@ public final class Settings {
          * Statusbar AICP logo color setting
          * @hide
          */
-        public static final String STATUS_BAR_AICP_LOGO_COLOR = "status_bar_elixir_logo_color";
+        public static final String STATUS_BAR_ELIXIR_LOGO_COLOR = "status_bar_elixir_logo_color";
 
         /**
          * Style of Status bar logo
@@ -4633,7 +4633,7 @@ public final class Settings {
          * 1 - Right
          * @hide
          */
-        public static final String STATUS_BAR_AICP_LOGO_STYLE = "status_bar_elixir_logo_style";
+        public static final String STATUS_BAR_ELIXIR_LOGO_STYLE = "status_bar_elixir_logo_style";
 
         /**
          *  Enable smartbar double tap to sleep gesture

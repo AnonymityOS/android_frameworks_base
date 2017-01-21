@@ -565,6 +565,7 @@ public class StatusBarIconController extends StatusBarIconList implements Tunabl
         mClockController.setTextColor(mIconTint);
         mBatteryMeterView.setDarkIntensity(
                 isInArea(mTintArea, mBatteryMeterView) ? mDarkIntensity : 0);
+        mBatteryLevelView.setTextColor(getTint(mTintArea, mBatteryLevelView, mIconTint));
         if (Settings.System.getIntForUser(mContext.getContentResolver(),
                 Settings.System.STATUS_BAR_ELIXIR_LOGO_COLOR, 0xFFFFFFFF,
                 UserHandle.USER_CURRENT) == 0xFFFFFFFF) {
