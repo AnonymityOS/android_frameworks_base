@@ -47,6 +47,7 @@ import android.os.Vibrator;
 import android.os.SystemVibrator;
 import android.os.storage.IMountService;
 import android.os.storage.IMountShutdownObserver;
+import android.provider.Settings;
 import android.system.ErrnoException;
 import android.system.Os;
 import android.widget.ListView;
@@ -55,12 +56,16 @@ import com.android.internal.telephony.ITelephony;
 import com.android.server.pm.PackageManagerService;
 
 import android.util.Log;
+import android.view.Gravity;
 import android.view.WindowManager;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+
+import com.android.internal.util.elixir.Helpers;
+import com.android.internal.R;
 
 public final class ShutdownThread extends Thread {
     // constants
@@ -233,11 +238,31 @@ public final class ShutdownThread extends Thread {
 
             closer.dialog = sConfirmDialog;
             sConfirmDialog.setOnDismissListener(closer);
+            WindowManager.LayoutParams attrs = sConfirmDialog.getWindow().getAttributes();
+
             sConfirmDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_KEYGUARD_DIALOG);
+            sConfirmDialog.getWindow().setDimAmount(setRebootDialogDim(context));
             sConfirmDialog.show();
         } else {
             beginShutdownSequence(context);
         }
+    }
+
+    private static float setRebootDialogAlpha(Context context) {
+        int mRebootDialogAlpha = Settings.System.getInt(
+                context.getContentResolver(),
+                Settings.System.TRANSPARENT_POWER_MENU, 100);
+        double dAlpha = mRebootDialogAlpha / 100.0;
+        float alpha = (float) dAlpha;
+        return alpha;
+    }
+
+    private static float setRebootDialogDim(Context context) {
+        int mRebootDialogDim = Settings.System.getInt(context.getContentResolver(),
+                Settings.System.TRANSPARENT_POWER_DIALOG_DIM, 50);
+        double dDim = mRebootDialogDim / 100.0;
+        float dim = (float) dDim;
+        return dim;
     }
 
     private static void doSoftReboot() {
@@ -378,6 +403,10 @@ public final class ShutdownThread extends Thread {
         }
         pd.setCancelable(false);
         pd.getWindow().setType(WindowManager.LayoutParams.TYPE_KEYGUARD_DIALOG);
+        WindowManager.LayoutParams attrs = pd.getWindow().getAttributes();
+
+        attrs.alpha = setRebootDialogAlpha(context);
+        pd.getWindow().setDimAmount(setRebootDialogDim(context));
 
         pd.show();
 

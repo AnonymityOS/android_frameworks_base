@@ -38,4 +38,9 @@
 
     <!-- Battery charging color -->
     <color name="system_primary_color">@*android:color/material_blue_grey_900</color>
+
+    <!-- Volume panel border coler -->
+    <color name="volume_panel_border_color">#ff8000ff</color><!-- Screw'd purple -->
+    <color name="system_accent_color">#ff80CBC4</color><!-- deep teal 200 -->
+
 </resources>
