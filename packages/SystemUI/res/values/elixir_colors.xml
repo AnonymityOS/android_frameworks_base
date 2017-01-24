@@ -43,4 +43,6 @@
     <color name="volume_panel_border_color">#ff8000ff</color><!-- Screw'd purple -->
     <color name="system_accent_color">#ff80CBC4</color><!-- deep teal 200 -->
 
+    <!-- External QS tile tint color -->
+    <color name="external_qs_tile_tint_color">@android:color/white</color>
 </resources>
