@@ -603,6 +603,12 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                   Settings.System.QS_LAYOUT_COLUMNS),
                   false, this, UserHandle.USER_ALL);
            resolver.registerContentObserver(Settings.System.getUriFor(
+                  Settings.System.QS_LAYOUT_COLUMNS_LANDSCAPE),
+                  false, this, UserHandle.USER_ALL);
+           resolver.registerContentObserver(Settings.System.getUriFor(
+                  Settings.System.QS_LAYOUT_COLUMNS),
+                  false, this, UserHandle.USER_ALL);
+           resolver.registerContentObserver(Settings.System.getUriFor(
                   Settings.System.BLUR_SCALE_PREFERENCE_KEY), false, this);
            resolver.registerContentObserver(Settings.System.getUriFor(
                   Settings.System.BLUR_RADIUS_PREFERENCE_KEY), false, this);
