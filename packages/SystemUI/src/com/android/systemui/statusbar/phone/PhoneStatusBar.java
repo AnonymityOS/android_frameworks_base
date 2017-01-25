@@ -606,7 +606,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                   Settings.System.QS_LAYOUT_COLUMNS_LANDSCAPE),
                   false, this, UserHandle.USER_ALL);
            resolver.registerContentObserver(Settings.System.getUriFor(
-                  Settings.System.QS_LAYOUT_COLUMNS),
+                  Settings.System.QS_TILE_TITLE_VISIBILITY),
                   false, this, UserHandle.USER_ALL);
            resolver.registerContentObserver(Settings.System.getUriFor(
                   Settings.System.BLUR_SCALE_PREFERENCE_KEY), false, this);
@@ -729,10 +729,6 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
 
             RecentsActivity.updateBlurColors(mBlurDarkColorFilter,mBlurMixedColorFilter,mBlurLightColorFilter);
             RecentsActivity.updateRadiusScale(mScaleRecents,mRadiusRecents);
-
-            if (mNotificationPanel != null) {
-                mNotificationPanel.updateSettings();
-            }
 
             if (mHeader != null) {
                 mHeader.updateSettings();
@@ -974,8 +970,6 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             mSettingsObserver = new SettingsObserver(new Handler());
         }
         mSettingsObserver.observe();
-
-        mObserver.observe();
 
         // Lastly, call to the icon policy to install/update all the icons.
         mIconPolicy = new PhoneStatusBarPolicy(mContext, mIconController, mCastController,
