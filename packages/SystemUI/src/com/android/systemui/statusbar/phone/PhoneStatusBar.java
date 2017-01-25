@@ -600,6 +600,9 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                   Settings.System.NAV_BAR_DYNAMIC),
                   false, this, UserHandle.USER_ALL);
            resolver.registerContentObserver(Settings.System.getUriFor(
+                  Settings.System.QS_LAYOUT_COLUMNS),
+                  false, this, UserHandle.USER_ALL);
+           resolver.registerContentObserver(Settings.System.getUriFor(
                   Settings.System.BLUR_SCALE_PREFERENCE_KEY), false, this);
            resolver.registerContentObserver(Settings.System.getUriFor(
                   Settings.System.BLUR_RADIUS_PREFERENCE_KEY), false, this);
@@ -957,6 +960,8 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             mSettingsObserver = new SettingsObserver(new Handler());
         }
         mSettingsObserver.observe();
+
+        mObserver.observe();
 
         // Lastly, call to the icon policy to install/update all the icons.
         mIconPolicy = new PhoneStatusBarPolicy(mContext, mIconController, mCastController,
